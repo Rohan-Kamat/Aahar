@@ -1,17 +1,18 @@
 // ignore_for_file: duplicate_import, unnecessary_this
 
 import 'dart:convert';
+import 'package:aahar/model/messDetailsModel.dart';
 import 'package:flutter/foundation.dart';
 
 class UserModel {
   String? name;
-  int? age;
+  int? dob;
   int? phone;
   String? gender;
   String? profilePic;
   String? rollNumber;
-  String? regNo;
-  int? sem;
+  String? registrationNumber;
+  int? semester;
   String? fcmToken;
   String? currAllocDate; // current mess allocation Date
   int? skipCount; // skip counts
@@ -19,12 +20,13 @@ class UserModel {
   String? email;
   String? createdAt;
   int? state;
+  MessDetails? messDetails; // messdetails class
 
   UserModel({
     this.name,
-    this.age,
+    this.dob,
     this.gender,
-    this.sem,
+    this.semester,
     this.profilePic,
     this.rollNumber,
     this.skipCount,
@@ -33,20 +35,21 @@ class UserModel {
     this.phone,
     this.state,
     this.currAllocDate,
-    this.regNo,
+    this.registrationNumber,
     this.fcmToken,
     this.userId,
+    this.messDetails,
   });
 
   UserModel copyWith({
     String? name,
-    int? age,
+    int? dob,
     int? phone,
     String? gender,
     String? profilePic,
     String? rollNumber,
-    String? regNo,
-    int? sem,
+    String? registrationNumber,
+    int? semester,
     String? fcmToken,
     String? currAllocDate, // current mess allocation Date
     int? skipCount, // skip counts
@@ -54,50 +57,54 @@ class UserModel {
     String? email,
     String? createdAt,
     int? state,
+    MessDetails? messDetails,
   }) {
     return UserModel(
-        name: name ?? this.name,
-        age: age ?? this.age,
-        gender: gender ?? this.gender,
-        sem: sem ?? this.sem,
-        profilePic: profilePic ?? this.profilePic,
-        skipCount: skipCount ?? this.skipCount,
-        fcmToken: fcmToken ?? this.fcmToken,
-        userId: userId ?? this.userId,
-        rollNumber: rollNumber ?? this.rollNumber,
-        email: email ?? this.email,
-        createdAt: createdAt ?? this.createdAt,
-        phone: phone ?? this.phone,
-        regNo: regNo ?? this.regNo,
-        state: state ?? this.state);
+      name: name ?? this.name,
+      dob: dob ?? this.dob,
+      gender: gender ?? this.gender,
+      semester: semester ?? this.semester,
+      profilePic: profilePic ?? this.profilePic,
+      skipCount: skipCount ?? this.skipCount,
+      fcmToken: fcmToken ?? this.fcmToken,
+      userId: userId ?? this.userId,
+      rollNumber: rollNumber ?? this.rollNumber,
+      email: email ?? this.email,
+      createdAt: createdAt ?? this.createdAt,
+      phone: phone ?? this.phone,
+      registrationNumber: registrationNumber ?? this.registrationNumber,
+      state: state ?? this.state,
+      messDetails: messDetails ?? this.messDetails,
+    );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'age': age,
+      'dob': dob,
       'gender': gender,
       'email': email,
-      'sem': sem,
+      'semester': semester,
       'skipCount': skipCount,
       'fcmTpken': fcmToken,
       'rollNumber': rollNumber,
-      'regNo': regNo,
+      'registrationNumber': registrationNumber,
       'profilePic': profilePic,
       'userId': userId,
       'createdAt': createdAt,
       'phone': phone,
       'state': state,
+      'messDetails': messDetails?.toMap(),
     };
   }
 
   factory UserModel.fromMap(var map) {
     return UserModel(
       name: map['name'],
-      age: map['age']?.toInt(),
+      dob: map['dob']?.toInt(),
       gender: map['gender'],
       profilePic: map['profilePic'],
-      sem: map['sem']?.toInt(),
+      semester: map['semester']?.toInt(),
       skipCount: map['skipCount']?.toInt(),
       fcmToken: map['fcmToken'],
       userId: map['userId'],
@@ -106,16 +113,19 @@ class UserModel {
       phone: map['phone'],
       state: map['state'],
       rollNumber: map['rollNumber'],
-      regNo: map['regNo'],
+      registrationNumber: map['registrationNumber'],
+      messDetails: map['messDetails'] != null
+          ? MessDetails.fromMap(map['messDetails'])
+          : null,
     );
   }
   factory UserModel.fromMapFromServer(var map) {
     return UserModel(
       name: map['name'],
-      age: map['age']?.toInt(),
+      dob: map['dob']?.toInt(),
       gender: map['gender'],
       profilePic: map['profilePic'],
-      sem: map['sem']?.toInt(),
+      semester: map['semester']?.toInt(),
       skipCount: map['skipCount']?.toInt(),
       fcmToken: map['fcmToken'],
       userId: map['userId'],
@@ -124,7 +134,10 @@ class UserModel {
       phone: map['phone'],
       state: map['state'],
       rollNumber: map['rollNumber'],
-      regNo: map['regNo'],
+      registrationNumber: map['registrationNumber'],
+      messDetails: map['messDetails'] != null
+          ? MessDetails.fromMap(map['messDetails'])
+          : null,
     );
   }
 
@@ -137,7 +150,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(name: $name, age: $age,  sem: $sem, profilePic: $profilePic, skipCount: $skipCount, rollNumber: $rollNumber, regNo: $regNo,    userId: $userId,  email:$email, createdAt:$createdAt,  phone:$phone,  state: $state, fcmToken: $fcmToken)';
+    return 'UserModel(name: $name, dob: $dob,  semester: $semester, profilePic: $profilePic, skipCount: $skipCount, rollNumber: $rollNumber, registrationNumber: $registrationNumber,    userId: $userId,  email:$email, createdAt:$createdAt,  phone:$phone,  state: $state, fcmToken: $fcmToken, messDetails: $messDetails)';
   }
 
   @override
@@ -146,36 +159,38 @@ class UserModel {
 
     return other is UserModel &&
         other.name == name &&
-        other.age == age &&
+        other.dob == dob &&
         other.gender == gender &&
         other.fcmToken == fcmToken &&
-        other.sem == sem &&
+        other.semester == semester &&
         other.skipCount == skipCount &&
         other.profilePic == profilePic &&
         other.rollNumber == rollNumber &&
-        other.regNo == regNo &&
+        other.registrationNumber == registrationNumber &&
         other.userId == userId &&
         other.email == email &&
         other.createdAt == createdAt &&
         other.phone == phone &&
-        other.state == state;
+        other.state == state &&
+        other.messDetails == messDetails;
   }
 
   @override
   int get hashCode {
     //var referralname;
     return name.hashCode ^
-        age.hashCode ^
+        dob.hashCode ^
         gender.hashCode ^
-        sem.hashCode ^
+        semester.hashCode ^
         skipCount.hashCode ^
         rollNumber.hashCode ^
-        regNo.hashCode ^
+        registrationNumber.hashCode ^
         fcmToken.hashCode ^
         userId.hashCode ^
         email.hashCode ^
         createdAt.hashCode ^
         phone.hashCode ^
-        state.hashCode;
+        state.hashCode ^
+        messDetails.hashCode;
   }
 }

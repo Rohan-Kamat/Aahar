@@ -1,15 +1,12 @@
+import 'package:aahar/helpers/themes/consts.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatefulWidget {
-
   final String? hintText;
   final TextEditingController textFieldController;
 
-  const TextFieldWidget({
-    super.key,
-    this.hintText,
-    required this.textFieldController
-  });
+  const TextFieldWidget(
+      {super.key, this.hintText, required this.textFieldController});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -18,23 +15,24 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   late FocusNode _textFieldFocusNode;
   Color _textFieldFillColor = const Color(0xFFD9D9D9);
-  
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _textFieldFocusNode = FocusNode();
     _textFieldFocusNode.addListener(_onFocusChange);
   }
-  
+
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _textFieldFocusNode.removeListener(_onFocusChange);
     _textFieldFocusNode.dispose();
   }
 
-  void _onFocusChange(){
-    if (_textFieldFocusNode.hasFocus || widget.textFieldController.text.isNotEmpty){
+  void _onFocusChange() {
+    if (_textFieldFocusNode.hasFocus ||
+        widget.textFieldController.text.isNotEmpty) {
       setState(() {
         _textFieldFillColor = Colors.white;
       });
@@ -45,7 +43,6 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -53,7 +50,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       child: TextField(
         focusNode: _textFieldFocusNode,
         controller: widget.textFieldController,
-        onTapOutside: (event){
+        onTapOutside: (event) {
           _textFieldFocusNode.unfocus();
         },
         decoration: InputDecoration(
@@ -71,15 +68,12 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             letterSpacing: -0.24,
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                  width: 0
-              ),
-              borderRadius: BorderRadius.circular(20)
-          ),
+              borderSide: const BorderSide(width: 0),
+              borderRadius: BorderRadius.circular(20)),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
+            borderSide: BorderSide(
               width: 1,
-              color: Color(0xFFFF7F7F),
+              color: Consts.primaryColor,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
@@ -88,5 +82,3 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     );
   }
 }
-
-

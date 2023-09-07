@@ -1,4 +1,4 @@
-import 'package:aahar/consts/consts.dart';
+import 'package:aahar/helpers/themes/consts.dart';
 import 'package:aahar/widgets/contentContainer.dart';
 import 'package:aahar/widgets/continueButton.dart';
 import 'package:aahar/widgets/gradientContainer.dart';
@@ -19,10 +19,10 @@ class SignUpCompleteScreen extends StatelessWidget {
           children: [
             GradientContainer(
                 title: "Verification\nComplete !",
-                subtitle: "Please wait for a moment while we setup the application for you",
+                subtitle:
+                    "Please wait for a moment while we setup the application for you",
                 height: 852 * heightRatio,
-                contentStart: 470 * heightRatio
-            ),
+                contentStart: 470 * heightRatio),
             Positioned(
                 top: 620 * heightRatio,
                 child: ContentContainer(
@@ -30,22 +30,24 @@ class SignUpCompleteScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 30,),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       ContinueButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatePasswordScreen()));
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CreatePasswordScreen()));
                         },
                       )
                     ],
                   ),
-                )
-            )
+                ))
           ],
         ),
-      )
-      ,
+      ),
     );
-
-
   }
 }
